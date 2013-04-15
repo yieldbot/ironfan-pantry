@@ -142,20 +142,20 @@ end
 
 def install_package(name, version, timeout)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{name}#{v}", :timeout => timeout)
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}/pip install#{expand_options(@new_resource.options)} #{name}#{v}", :timeout => timeout)
 end
 
 def upgrade_package(name, version, timeout)
   v = "==#{version}" unless version.eql?('latest')
-  shell_out!("pip install --upgrade#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}#{v}", :timeout => timeout)
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}/pip install --upgrade#{expand_options(@new_resource.options)} #{@new_resource.name}#{v}", :timeout => timeout)
 end
 
 def remove_package(name, version, timeout)
-  shell_out!("pip uninstall -y#{expand_options(@new_resource.options)}#{expand_virtualenv(can_haz_virtualenv(@new_resource))} #{@new_resource.name}", :timeout => timeout)
+  shell_out!("#{expand_virtualenv(can_haz_virtualenv(@new_resource))}/pip uninstall -y#{expand_options(@new_resource.options)} #{@new_resource.name}", :timeout => timeout)
 end
 
 def expand_virtualenv(virtualenv)
-  virtualenv && " --environment=#{virtualenv}"
+  virtualenv && "#{virtualenv}"
 end
 
 # TODO remove when provider is moved into Chef core
