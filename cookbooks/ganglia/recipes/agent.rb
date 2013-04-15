@@ -41,6 +41,23 @@ runit_service "ganglia_agent" do
   options       Mash.new(node[:ganglia].to_hash).merge(node[:ganglia][:agent].to_hash)
 end
 
+template "#{node[:ganglia][:conf_dir]}/gmond.conf" do
+  source        "gmond.conf.erb"
+  backup        false
+  owner         "ganglia"
+  group         "ganglia"
+  mode          "0644"
+  send_addr = discover(:ganglia, :server).private_ip rescue nil
+  variables(
+    :cluster => {
+      :name      => node[:cluster_name],
+      :send_addr => send_addr,
+      :send_port => node[:ganglia][:send_port],
+      :rcv_port  => node[:ganglia][:rcv_port ],
+    })
+  notifies      :restart, 'service[ganglia_agent]' if startable?(node[:ganglia][:agent])
+end
+
 #
 # Discover ganglia server, construct conf file
 #

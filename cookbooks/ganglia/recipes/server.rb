@@ -45,6 +45,28 @@ runit_service "ganglia_server" do
   options       Mash.new(node[:ganglia].to_hash).merge(node[:ganglia][:server].to_hash)
 end
 
+#
+# Conf file -- auto-discovers ganglia agents
+#
+
+monitor_groups = Hash.new{|h,k| h[k] = [] }
+discover_all(:ganglia, :agent).each do |svr|
+  monitor_groups[svr.name] << "#{svr.private_ip}:#{svr.node_info[:rcv_port]}"
+end
+
+# <%- servers.map{|svr| "#{svr[:private_ip]}:#{svr[:rcv_port]}" }.join(' ')  %>
+# <%- all_service_info("#{node[:cluster_name]}-ganglia_agent").each{|svr| monitor_groups[svr[:name]] << svr } %>
+
+template "#{node[:ganglia][:conf_dir]}/gmetad.conf" do
+  source        "gmetad.conf.erb"
+  backup        false
+  owner         "ganglia"
+  group         "ganglia"
+  mode          "0644"
+  notifies  :restart, "service[ganglia_server]", :delayed if startable?(node[:ganglia][:server])
+  variables :monitor_groups => monitor_groups
+end
+
 announce(:ganglia, :server, {
   :daemons => {
     :gmetad => { :name => 'gmetad', :user => node[:ganglia][:user] },
