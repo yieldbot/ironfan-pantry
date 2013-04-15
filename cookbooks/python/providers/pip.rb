@@ -155,7 +155,7 @@ def remove_package(name, version, timeout)
 end
 
 def expand_virtualenv(virtualenv)
-  virtualenv && "#{virtualenv}"
+  virtualenv && "#{virtualenv}/bin"
 end
 
 # TODO remove when provider is moved into Chef core
