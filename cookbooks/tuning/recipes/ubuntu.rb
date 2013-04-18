@@ -27,9 +27,11 @@ def set_proc_sys_limit desc, proc_path, limit
   end
 end
 
-set_proc_sys_limit "VM overcommit ratio",  '/proc/sys/vm/overcommit_memory', node[:tuning][:overcommit_memory]
-set_proc_sys_limit "VM overcommit memory", '/proc/sys/vm/overcommit_ratio',  node[:tuning][:overcommit_ratio]
-set_proc_sys_limit "VM swappiness",        '/proc/sys/vm/swappiness',        node[:tuning][:swappiness]
+set_proc_sys_limit "VM overcommit ratio",  '/proc/sys/vm/overcommit_memory',    node[:tuning][:overcommit_memory]
+set_proc_sys_limit "VM overcommit memory", '/proc/sys/vm/overcommit_ratio',     node[:tuning][:overcommit_ratio]
+set_proc_sys_limit "VM swappiness",        '/proc/sys/vm/swappiness',           node[:tuning][:swappiness]
+set_proc_sys_limit "TIME_WAIT reuse",      '/proc/sys/net/ipv4/tcp_tw_reuse',   node[:tuning][:tcp_tw_reuse]
+set_proc_sys_limit "TIME_WAIT recycle",    '/proc/sys/net/ipv4/tcp_tw_recycle', node[:tuning][:tcp_tw_recycle]
 
 node[:tuning][:ulimit].each do |user, ulimits|
   conf_file = user.gsub(/^@/, 'group_')

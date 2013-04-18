@@ -43,3 +43,6 @@ default[:tuning][:overcommit_ratio]  = 100
 # death of swap churn, make the machine be as agressive as possible.
 #
 default[:tuning][:swappiness]        = 5
+
+default[:tuning][:tcp_tw_reuse] = 0
+default[:tuning][:tcp_tw_recycle] = 0
