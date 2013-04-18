@@ -52,6 +52,7 @@ function install_berkshelves {
     ensure_bundle > /dev/null
     bundle exec berks install --path $1 > /dev/null
   done
+  echo
 }
 
 # 
@@ -64,7 +65,7 @@ export MAX_WAIT=<%= node[:jenkins_integration][:cookbook_ci][:max_wait] %>
 export CHEF_USER=<%= node[:jenkins_integration][:cookbook_ci][:chef_user] %>
 
 function knife {
-  script -q -c 'bundle exec knife '"$*" /dev/null       # fake a tty for color
+  bundle exec knife "$@"
 }
 function kc {
   knife cluster "$@"
@@ -96,7 +97,7 @@ function warning {
 function header {
   echo
   wrapper=`for i in $(seq $1); do echo -n '#'; done`
-  echo "$wrapper ${*:2} $wrapper"
+  echo -e "\x1b[30;1m$wrapper ${*:2} $wrapper\x1b[0m"
 }
 function h1 {
   header 1 $*
@@ -105,7 +106,7 @@ function h2 {
   header 2 $*
 }
 function indent {
-  $* |& sed "s/^/    /"
+  "$@" |& sed "s/^/    /"
 }
 
 export TEST_KOAN="<%= node[:jenkins_integration][:cookbook_ci][:koan][:testing] %>"
