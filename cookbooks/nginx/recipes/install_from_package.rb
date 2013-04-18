@@ -20,5 +20,21 @@
 #
 
 include_recipe 'yum::epel' if platform?('centos', 'redhat')
-package 'nginx'
+
+case node[:platform]
+when "debian", "ubuntu"
+  apt_repository "nginx" do
+    uri "http://nginx.org/packages/ubuntu/"
+    distribution "precise"
+    components ["nginx"]
+    key "http://sysoev.ru/pgp.txt"
+    action :add
+  end
+
+  package "nginx" do
+    options "--force-yes"
+  end
+else
+  package 'nginx'
+end
 
