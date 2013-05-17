@@ -25,7 +25,7 @@ default[:groups]['elasticsearch'][:gid]           = 61021
 # Install
 #
 
-default[:elasticsearch][:version]                 = "0.19.8"
+default[:elasticsearch][:version]                 = "0.90.0"
 default[:elasticsearch][:checksum]                = nil
 default[:elasticsearch][:release_url]             = "http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-:version:.tar.gz"
 default[:elasticsearch][:snapshot]                = false
@@ -33,9 +33,9 @@ default[:elasticsearch][:git_repo]                = "https://github.com/elastics
 
 # The syntax for this has changed. Use a hash, as in the examples shown:
 default[:elasticsearch][:plugins]                 = [
-  { name: 'bigdesk',                 org: 'lukas-vlcek',                     version: '2.0.0'  },
+  { name: 'bigdesk',                 org: 'lukas-vlcek',                     version: '2.2.0'  },
   { name: 'elasticsearch-head',      org: 'mobz',          dir: 'head',      },
-  { name: 'elasticsearch-cloud-aws', org: 'elasticsearch', dir: 'cloud-aws', version: '1.8.0', },
+  { name: 'elasticsearch-cloud-aws', org: 'elasticsearch', dir: 'cloud-aws', version: '1.11.0', },
 ]
 # Options are [none, local, fs, hadoop, s3]
 default[:elasticsearch][:gateway_type]            = 's3'
