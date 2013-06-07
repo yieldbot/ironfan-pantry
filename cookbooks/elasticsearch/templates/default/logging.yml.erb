@@ -49,12 +49,12 @@ appender:
       type: consolePattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
 
-  file:
-    type: file
-    file: ${path.logs}/${cluster.name}.log
-    layout:
-      type: pattern
-      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
+#  file:
+#    type: file
+#    file: ${path.logs}/${cluster.name}.log
+#    layout:
+#      type: pattern
+#      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
 
   index_search_slow_log_file:
     type: file
