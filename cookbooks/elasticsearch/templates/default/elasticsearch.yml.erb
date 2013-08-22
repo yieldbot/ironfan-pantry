@@ -80,6 +80,9 @@ indices:
       # Percent of memory on the node to cache filter results; this is a
       # node-level setting (and different from index.cache.*)
       size:                    <%= @elasticsearch[:cache_filter_size] %>
+  fielddata:
+    cache:
+      size: <%= @elasticsearch[:index_cache_field_size] %>
   memory:
     # Increase if you are bulk loading
     # A number ('512m') or percent ('10%'). You can set limits on a percentage
@@ -105,9 +108,6 @@ bootstrap:
 index:
   number_of_shards:             <%= @elasticsearch[:default_shards]   %>
   number_of_replicas:           <%= @elasticsearch[:default_replicas] %>
-  # The field cache can OOM your machine in a moment when too large, but when
-  # you have the RAM field values are one of the most important things to cache.
-  index.cache.field.type:         <%= @elasticsearch[:index_cache_field_type] %>
   #
   translog:
     # A shard is flushed to local disk (the lucene index is committed) once this
