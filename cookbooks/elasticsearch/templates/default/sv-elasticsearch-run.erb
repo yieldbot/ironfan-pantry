@@ -10,7 +10,7 @@ export ES_INCLUDE=$ES_CONF_DIR/elasticsearch.in.sh
 export JAVA_HOME=<%= @options[:java_home] %>
 
 # Where does data live?
-export ES_DATA_DIR=<%= @options[:data_dir] %>
+export ES_DATA_DIR=<%= @options[:data_dir].join(',') %>
 export ES_WORK_DIR=<%= @options[:scratch_dir] %>
 
 # bump the # of open files way way up
