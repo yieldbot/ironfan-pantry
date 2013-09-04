@@ -1,5 +1,5 @@
 export ES_CONF_DIR=${ES_CONF_DIR-<%= @elasticsearch[:conf_dir] %>}
-export ES_DATA_DIR=<%= @elasticsearch[:data_dir].join(',') %>
+export ES_DATA_DIR=<%= @elasticsearch[:data_dirs].join(',') %>
 export ES_WORK_DIR=${ES_WORK_DIR-<%= @elasticsearch[:scratch_dir] %>}
 
 export CLASSPATH=$ES_HOME/plugins/cloud-aws.zip
