@@ -58,6 +58,7 @@ default[:elasticsearch][:is_httpnode]             = false # set to true in elast
 default[:elasticsearch][:java_home]               = "/usr/lib/jvm/java-6-sun/jre"     # sun java works way better for ES
 default[:elasticsearch][:java_heap_size_max]      = 1000 # a NUMBER -- will be suffixed with 'm'
 default[:elasticsearch][:java_heap_newgen]        = nil  # JVM MaxNewSize (expert-level) a NUMBER -- will be suffixed with 'm'
+default[:elasticsearch][:ulimit]                  = 65536
 default[:elasticsearch][:ulimit_mlock]            = nil  # locked memory limit -- set to unlimited to lock heap into memory on linux machines
 
 default[:elasticsearch][:default_replicas]        = 1    # replicas are in addition to the original, so 1 replica means 2 copies of each shard
