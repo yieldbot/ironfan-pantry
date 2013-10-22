@@ -191,7 +191,7 @@ network:
 
 # http://www.elasticsearch.org/guide/reference/api/admin-cluster-nodes-shutdown.html
 action:
-  disable_shutdown:            false
+  disable_shutdown:            <%= @elasticsearch[:disable_shutdown] %>
 
 # http://www.elasticsearch.com/docs/elasticsearch/modules/transport/
 transport:

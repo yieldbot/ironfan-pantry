@@ -81,6 +81,8 @@ default[:elasticsearch][:snapshot_on_close]       = "true"
 
 default[:elasticsearch][:compress_transport]      = "true"
 
+default[:elasticsearch][:disable_shutdown]        = "false"
+
 default[:elasticsearch][:seeds]                   = nil
 
 default[:elasticsearch][:recovery_after_nodes]    = 2
