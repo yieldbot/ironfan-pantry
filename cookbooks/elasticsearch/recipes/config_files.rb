@@ -27,7 +27,10 @@ end
 template "/etc/elasticsearch/elasticsearch.in.sh" do
   source        "elasticsearch.in.sh.erb"
   mode          0644
-  variables     :elasticsearch => node[:elasticsearch]
+  variables     ({
+    :elasticsearch      => node[:elasticsearch],
+    :aws                => node[:aws]
+  })
 end
 
 node.set[:elasticsearch][:seeds] = discover_all(:elasticsearch, :datanode).map(&:private_ip)
@@ -42,7 +45,7 @@ template "/etc/elasticsearch/elasticsearch.yml" do
   # FIXME: This should be in server as a subscription, but that isn't supported by the
   #   new syntax, and the old syntax requires that the subscription only occur after
   #   the declaration of its target (which will fail since config happens last.)
-  if ( node.elasticsearch.is_datanode && ( node.elasticsearch.server.run_state != 'stop') )
-    notifies      :restart, "service[elasticsearch]"
-  end
+  #if ( node.elasticsearch.is_datanode && ( node.elasticsearch.server.run_state != 'stop') )
+  #  notifies      :restart, "service[elasticsearch]"
+  #end
 end

@@ -12,6 +12,8 @@ logger:
   discovery:    <%= node[:elasticsearch][:log_level][:default] %>
 
   additivity:
+    index.search.slowlog.query: false
+    index.search.slowlog.fetch: false
     index.search.slowlog: false
 
   index:
@@ -57,8 +59,10 @@ appender:
 #      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
 
   index_search_slow_log_file:
-    type: file
+    type: rollingFile
     file: ${path.logs}/${cluster.name}_index_search_slowlog.log
+    maxFileSize: 10000000
+    maxBackupIndex: 10
     layout:
       type: pattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
