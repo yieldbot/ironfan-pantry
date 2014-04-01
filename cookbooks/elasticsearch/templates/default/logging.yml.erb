@@ -11,11 +11,6 @@ logger:
     recovery:   <%= node[:elasticsearch][:log_level][:default] %>
   discovery:    <%= node[:elasticsearch][:log_level][:default] %>
 
-  additivity:
-    index.search.slowlog.query: false
-    index.search.slowlog.fetch: false
-    index.search.slowlog: false
-
   index:
     search:
       slowlog:  TRACE, index_search_slow_log_file
@@ -43,6 +38,8 @@ logger:
   com.amazonaws: WARN
   org.apache:    INFO
 
+additivity:
+  index.search.slowlog: false
   
 appender:
   console:
@@ -51,12 +48,14 @@ appender:
       type: consolePattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
 
-#  file:
-#    type: file
-#    file: ${path.logs}/${cluster.name}.log
-#    layout:
-#      type: pattern
-#      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
+  file:
+    type: rollingFile
+    file: ${path.logs}/${cluster.name}.log
+    maxFileSize: 10000000
+    maxBackupIndex: 10
+    layout:
+      type: pattern
+      conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
 
   index_search_slow_log_file:
     type: rollingFile
