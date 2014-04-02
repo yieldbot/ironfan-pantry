@@ -33,7 +33,7 @@ template "/etc/elasticsearch/elasticsearch.in.sh" do
   })
 end
 
-node.set[:elasticsearch][:seeds] = discover_all(:elasticsearch, :datanode).map(&:private_ip)
+node.set[:elasticsearch][:seeds] = discover_all(:elasticsearch, :datanode).map(&:private_hostname)
 Chef::Log.warn("No elasticsearch seeds!") if node[:elasticsearch][:seeds].empty?
 template "/etc/elasticsearch/elasticsearch.yml" do
   source        "elasticsearch.yml.erb"
