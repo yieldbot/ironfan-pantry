@@ -6,7 +6,7 @@ sensu_gem 'rest-client'
 
 # Monitor the cluster status
 sensu_check 'check-es-server-cluster-status' do
-  command   "#{node['sensu']['directories']['base']}/plugins/sensu-community-plugins/elasticsearch/check-es-server-cluster-status.rb"
+  command   "#{node['sensu']['directories']['base']}/plugins/sensu-community-plugins/elasticsearch/check-es-cluster-status.rb"
   standalone    true
 end
 
