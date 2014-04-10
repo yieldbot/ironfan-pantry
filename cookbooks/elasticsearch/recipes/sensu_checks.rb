@@ -1,5 +1,5 @@
 # Only process if we find the monitor cookbook in the run list
-return unless node.recipe?('monitor')
+return unless node.recipe?('monitor::default')
 
 # Bring in the necessary ruby dependencies
 sensu_gem 'rest-client'
