@@ -5,9 +5,10 @@ return unless node.recipe?('monitor::default')
 sensu_gem 'rest-client'
 
 # Monitor the cluster status
-sensu_check 'check-es-server-cluster-status' do
-  command   "#{node['sensu']['directories']['base']}/plugins/sensu-community-plugins/elasticsearch/check-es-cluster-status.rb"
-  standalone    true
+sensu_check 'check-es-cluster-status' do
+  command     "#{node['sensu']['directories']['base']}/plugins/sensu-yieldbot-plugins/elasticsearch/check-es-cluster-status.rb"
+  handlers    ['devops-red']
+  standalone  true
 end
 
 # TODO: Calculate the warning/critical heap bytes based off of the current number of bytes allocated to the JVM
