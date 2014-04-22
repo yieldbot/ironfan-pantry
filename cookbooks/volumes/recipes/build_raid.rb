@@ -82,23 +82,14 @@ Silverware.raid_groups(node).each do |rg_name, rg|
       act = bash "format #{rg.name} (#{rg.sub_volumes})" do
         user      "root"
         # Returns success iff the drive is formatted XFS.
-        code      %Q{ mkfs.xfs -f #{rg.device} ; file -s #{rg.device} | grep XFS }
+        code      %Q{ sleep 30; mkfs.xfs -f #{rg.device} ; sleep 30; file -s #{rg.device} | grep XFS }
         not_if("file -s #{rg.device} | grep XFS")
         action(:nothing)
       end
       act.run_action(:run)
-      # ARGH
-      clean = bash "mkfs.xfs -f #{rg.device}" do
-        user      "root"
-        code      %Q{ mkfs.xfs -f #{rg.device} }
-        action(:nothing)
-      end
-      clean.run_action(:run)
       rg.formatted!
     else
       Chef::Log.warn("Not formatting #{rg.name}. Volume is unready: (#{rg.inspect})")
     end
   end
-
-
 end
