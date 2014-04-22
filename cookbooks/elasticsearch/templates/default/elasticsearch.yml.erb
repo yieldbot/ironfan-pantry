@@ -221,7 +221,8 @@ jmx:
 # http://www.elasticsearch.com/docs/elasticsearch/modules/discovery/
 discovery:
   # set to 'zen' or 'ec2'
-  type:                         zen
+  type:                         <%= @elasticsearch[:discovery_type] %>
+  <%- if @elasticsearch[:discovery_type] == 'zen' %>
   zen:
     <%- if @elasticsearch[:seeds].nil? %>
     ping:
@@ -246,7 +247,17 @@ discovery:
       ping_timeout:             <%= @elasticsearch[:fd_ping_timeout] %>
       # # How many ping failures / timeouts cause a node to be considered failed. Defaults to 3.
       ping_retries:             <%= @elasticsearch[:fd_ping_retries] %>
-
+  <%- elsif @elasticsearch[:discovery_type] == 'ec2' %>
+  ec2:
+    groups:                     <%- unless @elasticsearch[:discovery_ec2][:groups].nil? %><%= @elasticsearch[:discovery_ec2][:groups].compact.map(&:to_s).sort.join(",") %><%- end %>
+    host_type:                  <%= @elasticsearch[:discovery_ec2][:host_type] %>
+    availability_zones:         <%- unless @elasticsearch[:discovery_ec2][:availability_zones].nil? %><%= @elasticsearch[:discovery_ec2][:availability_zones].compact.map(&:to_s).sort.join(",") %><%- end %>
+    any_group:                  <%= @elasticsearch[:discovery_ec2][:any_group] %>
+    ping_timeout:               <%= @elasticsearch[:discovery_ec2][:ping_timeout] %>
+<% @elasticsearch[:discovery_ec2][:tag].sort.each do |key, value| %>
+    <%= "discovery.ec2.tag.#{key}" %>: <%= value %>
+<% end %>
+  <%- end %>
 <%- if @aws  %>
 # Necessary if you will use either of
 # * the ec2 discovery module: for finding peers
@@ -286,3 +297,7 @@ monitor.jvm.gc.ParNew.debug:               400ms
 monitor.jvm.gc.ConcurrentMarkSweep.warn:    10s
 monitor.jvm.gc.ConcurrentMarkSweep.info:     5s
 monitor.jvm.gc.ConcurrentMarkSweep.debug:    2s
+
+<% @elasticsearch[:custom_config].sort.each do |key, value| %>
+<%= key %>: <%= value %>
+<% end %>
