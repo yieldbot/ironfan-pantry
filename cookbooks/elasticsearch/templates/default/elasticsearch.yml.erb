@@ -261,6 +261,7 @@ discovery:
     ping_timeout:               <%= @elasticsearch[:discovery_ec2][:ping_timeout] %>
 <% @elasticsearch[:discovery_ec2][:tag].sort.each do |key, value| %>
     <%= "discovery.ec2.tag.#{key}" %>: <%= value %>
+<% end %>
 cloud:
   node:
     auto_attributes:            <%= @elasticsearch[:discovery_ec2][:auto_attributes] %>
