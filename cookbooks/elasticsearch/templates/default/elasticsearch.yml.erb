@@ -249,7 +249,7 @@ discovery:
     <%- end %>
 <%- elsif @elasticsearch[:discovery_type] == 'ec2' %>
   zen:
-    minimum_master_nodes:       <%= @elasticsearch[:minimum_master_nodes] %>
+    minimum_master_nodes:       <%= @elasticsearch[:discovery_ec2][:minimum_master_nodes] %>
     ping:
       multicast:
         enabled:                false
