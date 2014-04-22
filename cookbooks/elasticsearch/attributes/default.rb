@@ -122,9 +122,11 @@ default[:elasticsearch][:log_level][:cluster_service] = 'INFO'
 default[:elasticsearch][:log_level][:gateway]         = 'INFO' # spews information on every snapshot
 
 # EC2 Discovery Configuration
-default[:elasticsearch][:discovery_ec2][:groups]              = nil
-default[:elasticsearch][:discovery_ec2][:tag]                 = {}
-default[:elasticsearch][:discovery_ec2][:host_type]           = 'private_ip'
-default[:elasticsearch][:discovery_ec2][:availability_zones]  = nil
-default[:elasticsearch][:discovery_ec2][:any_group]           = 'false'
-default[:elasticsearch][:discovery_ec2][:ping_timeout]        = '3s'
+default[:elasticsearch][:discovery_ec2][:groups]                = nil
+default[:elasticsearch][:discovery_ec2][:tag]                   = {}
+default[:elasticsearch][:discovery_ec2][:host_type]             = 'private_ip'
+default[:elasticsearch][:discovery_ec2][:availability_zones]    = nil
+default[:elasticsearch][:discovery_ec2][:any_group]             = 'false'
+default[:elasticsearch][:discovery_ec2][:ping_timeout]          = '3s'
+default[:elasticsearch][:discovery_ec2][:auto_attributes]       = false
+default[:elasticsearch][:discovery_ec2][:minimum_master_nodes]  = 1

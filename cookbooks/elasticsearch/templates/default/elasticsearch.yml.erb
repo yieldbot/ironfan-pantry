@@ -222,8 +222,19 @@ jmx:
 discovery:
   # set to 'zen' or 'ec2'
   type:                         <%= @elasticsearch[:discovery_type] %>
-  <%- if @elasticsearch[:discovery_type] == 'zen' %>
   zen:
+    # There are two fault detection processes running. The first is by the
+    # master, to ping all the other nodes in the cluster and verify that they
+    # are alive. And on the other end, each node pings to master to verify if
+    # its still alive or an election process needs to be initiated.
+    fd:
+      # How often a node gets pinged. Defaults to "1s".
+      ping_interval:            <%= @elasticsearch[:fd_ping_interval] %>
+      # # How long to wait for a ping response, defaults to "30s".
+      ping_timeout:             <%= @elasticsearch[:fd_ping_timeout] %>
+      # # How many ping failures / timeouts cause a node to be considered failed. Defaults to 3.
+      ping_retries:             <%= @elasticsearch[:fd_ping_retries] %>
+<%- if @elasticsearch[:discovery_type] == 'zen' %>
     <%- if @elasticsearch[:seeds].nil? %>
     ping:
       multicast:
@@ -236,28 +247,24 @@ discovery:
         hosts:                  <%= @elasticsearch[:seeds].compact.map(&:to_s).sort.join(",") %>
     minimum_master_nodes:       <%= (@elasticsearch[:seeds].compact.length > 2) ? (1+(@elasticsearch[:seeds].compact.length / 2)) : 1 %>
     <%- end %>
-    # There are two fault detection processes running. The first is by the
-    # master, to ping all the other nodes in the cluster and verify that they
-    # are alive. And on the other end, each node pings to master to verify if
-    # its still alive or an election process needs to be initiated.
-    fd:
-      # How often a node gets pinged. Defaults to "1s".
-      ping_interval:            <%= @elasticsearch[:fd_ping_interval] %>
-      # # How long to wait for a ping response, defaults to "30s".
-      ping_timeout:             <%= @elasticsearch[:fd_ping_timeout] %>
-      # # How many ping failures / timeouts cause a node to be considered failed. Defaults to 3.
-      ping_retries:             <%= @elasticsearch[:fd_ping_retries] %>
-  <%- elsif @elasticsearch[:discovery_type] == 'ec2' %>
+<%- elsif @elasticsearch[:discovery_type] == 'ec2' %>
+  zen:
+    minimum_master_nodes:       <%= @elasticsearch[:minimum_master_nodes] %>
+    ping:
+      multicast:
+        enabled:                false
   ec2:
-    groups:                     <%- unless @elasticsearch[:discovery_ec2][:groups].nil? %><%= @elasticsearch[:discovery_ec2][:groups].compact.map(&:to_s).sort.join(",") %><%- end %>
+<%- unless @elasticsearch[:discovery_ec2][:groups].nil? %>    groups:                     <%= @elasticsearch[:discovery_ec2][:groups].compact.map(&:to_s).sort.join(",") %><%- end %>
     host_type:                  <%= @elasticsearch[:discovery_ec2][:host_type] %>
-    availability_zones:         <%- unless @elasticsearch[:discovery_ec2][:availability_zones].nil? %><%= @elasticsearch[:discovery_ec2][:availability_zones].compact.map(&:to_s).sort.join(",") %><%- end %>
+<%- unless @elasticsearch[:discovery_ec2][:availability_zones].nil? %>    availability_zones:         <%= @elasticsearch[:discovery_ec2][:availability_zones].compact.map(&:to_s).sort.join(",") %><%- end %>
     any_group:                  <%= @elasticsearch[:discovery_ec2][:any_group] %>
     ping_timeout:               <%= @elasticsearch[:discovery_ec2][:ping_timeout] %>
 <% @elasticsearch[:discovery_ec2][:tag].sort.each do |key, value| %>
     <%= "discovery.ec2.tag.#{key}" %>: <%= value %>
+cloud:
+  node:
+    auto_attributes:            <%= @elasticsearch[:discovery_ec2][:auto_attributes] %>
 <% end %>
-  <%- end %>
 <%- if @aws  %>
 # Necessary if you will use either of
 # * the ec2 discovery module: for finding peers
