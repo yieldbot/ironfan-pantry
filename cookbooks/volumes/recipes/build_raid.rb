@@ -93,7 +93,7 @@ Silverware.raid_groups(node).each do |rg_name, rg|
         code      %Q{ mkfs.xfs -f #{rg.device} }
         action(:nothing)
       end
-      clean.run_action(:run) if act.updated_by_last_action?
+      clean.run_action(:run)
       rg.formatted!
     else
       Chef::Log.warn("Not formatting #{rg.name}. Volume is unready: (#{rg.inspect})")
