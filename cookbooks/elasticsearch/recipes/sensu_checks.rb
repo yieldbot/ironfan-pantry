@@ -8,6 +8,9 @@ sensu_gem 'rest-client'
 sensu_check 'check-es-cluster-status' do
   command     "#{node['sensu']['directories']['base']}/plugins/sensu-yieldbot-plugins/elasticsearch/check-es-cluster-status.rb"
   handlers    ['devops-red']
+  additional(
+    :occurrences => 3
+  )
   standalone  true
 end
 
