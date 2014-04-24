@@ -130,3 +130,6 @@ default[:elasticsearch][:discovery_ec2][:any_group]             = 'false'
 default[:elasticsearch][:discovery_ec2][:ping_timeout]          = '3s'
 default[:elasticsearch][:discovery_ec2][:auto_attributes]       = false
 default[:elasticsearch][:discovery_ec2][:minimum_master_nodes]  = 1
+
+
+default[:elasticsearch][:custom_config] = {}
