@@ -81,6 +81,9 @@ indices:
       # node-level setting (and different from index.cache.*)
       size:                    <%= @elasticsearch[:cache_filter_size] %>
   fielddata:
+    breaker:
+      limit: <%= @elasticsearch[:index_cache_field_cb_limit] %>
+      overhead: <%= @elasticsearch[:index_cache_field_cb_overhead] %>
     cache:
       size: <%= @elasticsearch[:index_cache_field_size] %>
   memory:
