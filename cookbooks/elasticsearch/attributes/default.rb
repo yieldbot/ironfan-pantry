@@ -71,7 +71,7 @@ default[:elasticsearch][:index_buffer_size]       = "10%"  # can be a percent ("
 default[:elasticsearch][:index_cache_field_type]  = 'resident'   # Another option is soft, which will increase cache performance but be wary because this will make it crash if the "wrong" query is issued. The field cache can OOM your machine in a moment when too large, but when you have the RAM field values are one of the most important things to cache. Consider setting this to a very high value to be safe; certainly, set it on indexes that are very large.
 default[:elasticsearch][:index_cache_field_size]  = '40%'
 default[:elasticsearch][:index_cache_field_cb_limit] = '80%'  # fielddata circuit breaker limit
-default[:elasticsearch][:index_cache_field_cb_overhead] = '1.0.3'  # fielddata circuit breaker overhead
+default[:elasticsearch][:index_cache_field_cb_overhead] = '1.03'  # fielddata circuit breaker overhead
 default[:elasticsearch][:merge_factor]            = 10
 default[:elasticsearch][:floor_segment]           = "2.7mb"
 
