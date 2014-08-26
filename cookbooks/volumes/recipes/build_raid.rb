@@ -75,14 +75,14 @@ Silverware.raid_groups(node).each do |rg_name, rg|
   #   code      "blockdev --setra #{raid_group.read_ahead} #{raid_group.device}"
   # end
 
-  Chef::Log.debug([rg.formattable?, rg.ready_to_format?, rg[:formatted], `file -s #{rg.device}`].inspect)
+  # Chef::Log.debug([rg.formattable?, rg.ready_to_format?, rg[:formatted], `file -s #{rg.device}`].inspect)
 
   if rg.formattable?
     if rg.ready_to_format?
       act = bash "format #{rg.name} (#{rg.sub_volumes})" do
         user      "root"
         # Returns success iff the drive is formatted XFS.
-        code      %Q{ sleep 30; mkfs.xfs -f #{rg.device} ; sleep 30; file -s #{rg.device} | grep XFS }
+        code      %Q{ mkfs.xfs -f #{rg.device} ; file -s #{rg.device} | grep XFS }
         not_if("file -s #{rg.device} | grep XFS")
         action(:nothing)
       end
@@ -92,4 +92,6 @@ Silverware.raid_groups(node).each do |rg_name, rg|
       Chef::Log.warn("Not formatting #{rg.name}. Volume is unready: (#{rg.inspect})")
     end
   end
+
+
 end
