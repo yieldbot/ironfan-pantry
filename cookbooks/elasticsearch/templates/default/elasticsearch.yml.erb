@@ -309,6 +309,8 @@ monitor.jvm.gc.ConcurrentMarkSweep.warn:    10s
 monitor.jvm.gc.ConcurrentMarkSweep.info:     5s
 monitor.jvm.gc.ConcurrentMarkSweep.debug:    2s
 
-<% @elasticsearch[:custom_config].sort.each do |key, value| %>
+<% Hash.to_dotted_hash(@elasticsearch[:custom_config]).sort.each do |key, value| %>
+<% unless value.nil? -%>
 <%= key %>: <%= value %>
+<% end %>
 <% end %>
