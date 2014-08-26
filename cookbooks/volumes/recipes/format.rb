@@ -30,8 +30,14 @@ volumes(node).each do |vol_name, vol|
 
   if not vol.ready_to_format? then Chef::Log.info("Skipping format of volume #{vol_name}: not formattable (#{vol.inspect})") ; next ; end
 
-
-  format_filesystem = execute "/sbin/mkfs -t #{vol.fstype} #{mkfs_options[vol.fstype].to_s} #{vol.device} -L #{vol.name}" do
+  # AWS EC2 instances may have trouble with mkfs paramter -L volume-label
+  if node[:ec2] then
+    mkfs_command = "sudo /sbin/mkfs -t #{vol.fstype} #{mkfs_options[vol.fstype].to_s} #{vol.device} ; sudo /sbin/e2label #{vol.device} #{vol.name}"
+  else
+    mkfs_command = "/sbin/mkfs -t #{vol.fstype} #{mkfs_options[vol.fstype].to_s} #{vol.device} -L #{vol.name}"
+  end
+  format_filesystem = execute "format_filesystem" do
+    command "#{mkfs_command}"
     not_if "eval $(blkid -o export #{vol.device}); test $TYPE = '#{vol.fstype}'"
     action  :nothing
   end
