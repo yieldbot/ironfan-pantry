@@ -89,7 +89,10 @@ default[:elasticsearch][:destructive_requires_name] = "false"
 default[:elasticsearch][:discovery_type]          = 'zen'
 default[:elasticsearch][:seeds]                   = nil
 
-default[:elasticsearch][:recovery_after_nodes]    = 2
+default[:elasticsearch][:recovery_after_nodes]        = 2
+default[:elasticsearch][:recovery_after_data_nodes]   = nil
+default[:elasticsearch][:recovery_after_master_nodes] = nil
+
 default[:elasticsearch][:recovery_after_time]     = '5m'
 default[:elasticsearch][:expected_nodes]          = 2
 

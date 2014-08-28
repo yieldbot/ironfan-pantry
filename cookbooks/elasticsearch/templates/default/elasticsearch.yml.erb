@@ -49,7 +49,15 @@ gateway:
   #
   # recovery begins when recover_after_nodes are present and then either
   # recovery_after_time has passed *or* expected_nodes have shown up.
+  <%- unless @elasticsearch[:recovery_after_nodes].nil? %>
   recover_after_nodes:          <%= @elasticsearch[:recovery_after_nodes] %>
+  <%- end %>
+  <%- unless @elasticsearch[:recovery_after_data_nodes].nil? %>
+  recovery_after_data_nodes:          <%= @elasticsearch[:recovery_after_data_nodes] %>
+  <%- end %>
+  <%- unless @elasticsearch[:recovery_after_master_nodes].nil? %>
+  recovery_after_master_nodes:          <%= @elasticsearch[:recovery_after_master_nodes] %>
+  <%- end %>
   recovery_after_time:          <%= @elasticsearch[:recovery_after_time]  %>
   expected_nodes:               <%= @elasticsearch[:expected_nodes] %>
   #
