@@ -3,9 +3,7 @@
 #
 
 cluster.name:                  <%= @elasticsearch[:realm] %>
-<%- if  @elasticsearch[:is_datanode] %>
 node.name:                     <%= node.name %>
-<%- end %>
 
 # File paths
 path:
