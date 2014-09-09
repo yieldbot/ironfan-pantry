@@ -1,5 +1,4 @@
-return unless node.recipe?('devops_consul::default')
-include_recipe 'devops_consul'
+include_recipe 'devops_consul::default'
 
 devops_consul_service 'elasticsearch' do
   tags      node['elasticsearch']['consul']['tags']
