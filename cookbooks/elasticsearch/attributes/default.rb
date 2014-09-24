@@ -54,6 +54,10 @@ default[:elasticsearch][:is_httpnode]             = false # set to true in elast
 #
 # Tunables
 #
+# Dynamic Memory Configuration
+default['elasticsearch']['dynamic_memory']['min_memory_threshold']    = 256
+default['elasticsearch']['dynamic_memory']['max_memory_allocation']   = 0.50
+
 
 default[:elasticsearch][:java_home]               = "/usr/lib/jvm/java-6-sun/jre"     # sun java works way better for ES
 default[:elasticsearch][:java_heap_size_max]      = 1000 # a NUMBER -- will be suffixed with 'm'
