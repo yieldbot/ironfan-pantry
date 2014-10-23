@@ -8,7 +8,7 @@ description      "Zookeeper, a distributed high-availability consistent datastor
 
 depends          "ant"
 depends          "java"
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "volumes"
 depends          "silverware"
 depends          "hadoop_cluster"

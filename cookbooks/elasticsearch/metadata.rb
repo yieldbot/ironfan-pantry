@@ -7,7 +7,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
 description      "Elasticsearch: a distributed full-text search database based on Lucene. You know, for search"
 
 depends          "java"
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "aws"
 depends          "volumes"
 depends          "tuning"

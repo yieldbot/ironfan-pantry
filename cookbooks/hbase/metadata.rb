@@ -7,7 +7,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
 description      "HBase: a massively-scalable high-throughput datastore based on the Hadoop HDFS"
 
 depends          "java"
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "volumes"
 depends          "silverware"
 depends          "minidash"

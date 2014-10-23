@@ -6,7 +6,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
 
 description      "Redis: a fast, flexible datastore offering an extremely useful set of data structure primitives"
 
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "silverware"
 
 recipe           "redis::default",                     "Base configuration for redis"

@@ -6,7 +6,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
 
 description      "Creates and serves a lightweight pluggable dashboard for a machine. Requires only the busybox httpd that is typically pre-installed with your OS"
 
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "silverware"
 
 recipe           "minidash::default",                   "Dashboard for this machine: index of services and their dashboard snippets"

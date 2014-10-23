@@ -12,7 +12,7 @@ depends          "silverware"
 depends          "volumes"
 depends          "git"
 
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "iptables"
 
 depends          "apache2"

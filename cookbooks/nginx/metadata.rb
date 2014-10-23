@@ -14,9 +14,10 @@ recipe "nginx::install_from_package", "Installs nginx from package"
   supports os
 end
 
-%w{ build-essential runit bluepill }.each do |cb|
+%w{ build-essential bluepill }.each do |cb|
   depends cb
 end
+depends 'runit', '~> 0.14.0'
 
 attribute "nginx/dir",
   :display_name => "Nginx Directory",

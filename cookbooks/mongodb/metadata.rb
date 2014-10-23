@@ -6,7 +6,7 @@ version          IO.read(File.join(File.dirname(__FILE__), 'VERSION'))
 
 description      "MongoDB is a scalable, high-performance, open source NoSQL database. "
 
-depends          "runit"
+depends 'runit', '~> 0.14.0'
 depends          "volumes"
 depends		 "install_from"
 
