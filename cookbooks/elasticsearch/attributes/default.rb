@@ -142,3 +142,6 @@ default[:elasticsearch][:discovery_ec2][:minimum_master_nodes]  = 1
 
 
 default[:elasticsearch][:custom_config] = {}
+
+default[:elasticsearch][:sensu][:check_es_cluster_index][:servers] = []
+default[:elasticsearch][:sensu][:check_es_cluster_index][:ignore] = []
