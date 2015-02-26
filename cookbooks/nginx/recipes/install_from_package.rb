@@ -27,7 +27,7 @@ when "debian", "ubuntu"
     uri "http://nginx.org/packages/ubuntu/"
     distribution "precise"
     components ["nginx"]
-    key "http://sysoev.ru/pgp.txt"
+    key "http://elzar.yieldbot.com.s3.amazonaws.com/devops_nginx/sysoev.ru_pgp.txt"
     action :add
   end
 
