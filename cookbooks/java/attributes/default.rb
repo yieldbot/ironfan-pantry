@@ -1,7 +1,7 @@
 #
 # Author:: Seth Chisamore (<schisamo@opscode.com>)
 # Cookbook Name:: java
-# Attributes:: default 
+# Attributes:: default
 #
 # Copyright 2010, Opscode, Inc.
 #
@@ -19,6 +19,9 @@
 
 # remove the deprecated Ubuntu jdk packages
 default['java']['remove_deprecated_packages'] = false
+
+# The ttl for the JDK to cache DNS
+default['java']['security']['cache'] = 300
 
 # default jdk attributes
 default['java']['install_flavor'] = "openjdk"
