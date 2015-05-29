@@ -22,6 +22,7 @@ include_recipe 'apt'
 java_home = node['java']["java_home"]
 jdk_version = node['java']['jdk_version'].to_s
 pkg_name = "oracle-java#{jdk_version}-installer"
+timeout = node['java']['security']['cache']
 
 Chef::Application.fatal!("Ubuntu only") unless platform?("ubuntu")
 
@@ -71,3 +72,19 @@ execute "update java alternatives" do
 #   action :nothing
 end
 
+security_file = "#{java_home}/jre/lib/security/java.security"
+
+#### Default JDK security setting for DNS is forever (-1). Changing it to be a more reasonable 5 minutes
+ruby_block 'edit java security ttl' do
+  block do
+    rc = Chef::Util::FileEdit.new(security_file)
+    rc.search_file_replace_line(
+      /^#*networkaddress.cache.ttl=.*$/,
+      "networkaddress.cache.ttl=#{timeout}"
+    )
+    rc.write_file
+  end
+  action :run
+  # YELLOW: This check should be in ruby (not sh)
+  not_if "grep '^networkaddress.cache.ttl=#{timeout}.*$' #{security_file}"
+end
