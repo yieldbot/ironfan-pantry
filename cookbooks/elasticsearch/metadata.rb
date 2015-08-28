@@ -14,6 +14,7 @@ depends          "tuning"
 depends          "silverware"
 depends          "install_from"
 depends          "devops_consul"
+depends          "devops_nodelogstash"
 
 recipe           "elasticsearch::client",              "Client"
 recipe           "elasticsearch::default",             "Base configuration for elasticsearch"
