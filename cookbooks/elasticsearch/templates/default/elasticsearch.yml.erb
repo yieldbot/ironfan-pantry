@@ -75,7 +75,7 @@ cluster:
 indices.recovery:
   concurrent_streams:           3
   compress:                     true
-  
+
 # http://groups.google.com/a/elasticsearch.com/group/users/browse_thread/thread/1f3001f43266879a/06d62ea3ceb4db30?lnk=gst&q=translog#06d62ea3ceb4db30
 indices:
   cache:
@@ -223,6 +223,11 @@ jmx:
   create_connector:             true
   port:                         <%= @elasticsearch[:jmx_dash_port] %>
   domain:                       elasticsearch
+
+sonian.elasticsearch.zookeeper:
+    settings.enabled: true
+    client.host: <%= @elasticsearch[:discovery_zk][:zk_hosts] %>
+    discovery.state_publishing.enabled: true
 
 # http://www.elasticsearch.com/docs/elasticsearch/modules/discovery/
 discovery:

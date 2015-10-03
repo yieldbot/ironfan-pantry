@@ -141,6 +141,11 @@ default[:elasticsearch][:discovery_ec2][:auto_attributes]       = false
 default[:elasticsearch][:discovery_ec2][:minimum_master_nodes]  = 1
 
 
+# Zookeeper Discovery Configuration
+
+default[:elasticsearch][:discovery_zk][:zk_hosts]                =  'localhost:2181'
+
+
 default[:elasticsearch][:custom_config] = {}
 
 default[:elasticsearch][:sensu][:check_es_cluster_index][:servers] = []
