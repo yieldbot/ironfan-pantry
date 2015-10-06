@@ -7,6 +7,6 @@ sensu_check 'check-es-cluster-index' do
   ignore  = "--ignore #{node[:elasticsearch][:sensu][:check_es_cluster_index][:ignore].join(',')}" if node[:elasticsearch][:sensu][:check_es_cluster_index][:ignore].length > 0
 
   command     "#{node['sensu']['directories']['base']}/plugins/sensu-yieldbot-plugins/elasticsearch/check-es-indexes.rb #{cluster} #{ignore}"
-  handlers    ['devops-red']
+  handlers    node[:elasticsearch][:sensu][:handler_red]
   standalone  true
 end if node[:elasticsearch][:sensu][:check_es_cluster_index][:servers].length > 0

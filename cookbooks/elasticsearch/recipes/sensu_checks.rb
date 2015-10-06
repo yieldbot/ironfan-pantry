@@ -7,7 +7,7 @@ sensu_gem 'rest-client'
 # Monitor the cluster status
 sensu_check 'check-es-cluster-status' do
   command     "#{node['sensu']['directories']['base']}/plugins/sensu-yieldbot-plugins/elasticsearch/check-es-cluster-status.rb"
-  handlers    ['devops-red']
+  handlers    node[:elasticsearch][:sensu][:handler_red]
   additional(
     :occurrences => 3
   )
@@ -17,6 +17,6 @@ end
 # Monitor the shard allocation status
 sensu_check 'check-es-shard-allocation-status' do
   command     "#{node['sensu']['directories']['base']}/plugins/sensu-yieldbot-plugins/elasticsearch/check-es-shard-allocation-status.rb"
-  handlers    ['devops-orange']
+  handlers    node[:elasticsearch][:sensu][:handler_orange]
   standalone  true
 end
