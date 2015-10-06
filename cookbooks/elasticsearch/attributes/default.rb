@@ -151,6 +151,6 @@ default[:elasticsearch][:custom_config] = {}
 default[:elasticsearch][:sensu][:check_es_cluster_index][:servers] = []
 default[:elasticsearch][:sensu][:check_es_cluster_index][:ignore] = []
 
-default[:elasticsearch][:sensu][:handler_red] = ['devops-red']
-default[:elasticsearch][:sensu][:handler_orange] = ['devops-orange']
-default[:elasticsearch][:sensu][:handler_yellow] = ['devops-yellow']
+default[:elasticsearch][:sensu][:handler_red] = ['notification']
+default[:elasticsearch][:sensu][:handler_orange] = ['notification']
+default[:elasticsearch][:sensu][:handler_yellow] = ['notification']
