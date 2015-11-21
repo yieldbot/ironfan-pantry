@@ -37,6 +37,11 @@ volume_dirs('elasticsearch.scratch') do
   mode          "0700"
 end
 
+directory node[:elasticsearch][:scripts_dir] do
+  owner         node[:elasticsearch ][:user]
+  mode          0755
+end
+
 if ((node[:elasticsearch][:data_root]) ||
     (File.exist?('/mnt/elasticsearch/data') && (not node[:elasticsearch][:data_dir])))
   raise %Q{In order to make the world safe for local (non-s3) gateway recovery, the attribute node[:elasticsearch][:data_root] (#{node[:elasticsearch][:data_root]}) is now invalid.

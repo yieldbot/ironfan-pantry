@@ -13,6 +13,8 @@ default[:elasticsearch][:pid_dir]                 = "/var/run/elasticsearch"
 default[:elasticsearch][:data_dir]                = nil # set by volume_dirs
 default[:elasticsearch][:scratch_dir]             = nil # set by volume_dirs
 
+default[:elasticsearch][:scripts_dir]             = "/etc/elasticsearch/scripts"
+
 #
 # User
 #
