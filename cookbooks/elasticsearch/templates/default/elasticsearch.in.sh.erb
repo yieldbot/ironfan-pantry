@@ -3,7 +3,7 @@ export ES_DATA_DIR=<%= @elasticsearch[:data_dirs].join(',') %>
 export ES_WORK_DIR=${ES_WORK_DIR-<%= @elasticsearch[:scratch_dir] %>}
 
 export CLASSPATH=$ES_HOME/plugins/cloud-aws.zip
-CLASSPATH=$CLASSPATH:$ES_HOME/lib/elasticsearch-@elasticsearch[:version].jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
+CLASSPATH=$CLASSPATH:$ES_HOME/lib/elasticsearch-<%= @elasticsearch[:version] %>.jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
 # CLASSPATH=$CLASSPATH:$ES_HOME/lib/${project.build.finalName}.jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
 export ES_CLASSPATH=$CLASSPATH
 
