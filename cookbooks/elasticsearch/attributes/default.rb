@@ -20,6 +20,7 @@ default[:elasticsearch][:scripts_dir]             = "/etc/elasticsearch/scripts"
 #
 
 default[:elasticsearch ][:user]                   = 'elasticsearch'
+default[:elasticsearch ][:group]                   = 'elasticsearch'
 default[:users ]['elasticsearch'][:uid]           = 61021
 default[:groups]['elasticsearch'][:gid]           = 61021
 
