@@ -39,4 +39,4 @@ sleep 2 # ES will flap flap flap if it crashes on start. Slightly reduces chance
 cd $ES_HOME
 
 exec chpst -u elasticsearch $ES_HOME/bin/elasticsearch \
-  -Des.config=$ES_CONF_DIR/elasticsearch.yml<% unless @options[:version].start_with?('1.') %> -f<% end %>
+  -Des.config=$ES_CONF_DIR/elasticsearch.yml<% unless @options[:version].start_with?('1.', '2.') %> -f<% end %>
