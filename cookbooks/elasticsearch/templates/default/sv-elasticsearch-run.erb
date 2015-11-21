@@ -38,5 +38,11 @@ sleep 2 # ES will flap flap flap if it crashes on start. Slightly reduces chance
 # Run in non-daemonizing mode
 cd $ES_HOME
 
+<%if @options[:version].start_with?('2.') %>
+exec chpst -u elasticsearch $ES_HOME/bin/elasticsearch
+<% end %>
+
+<%if @options[:version].start_with?('1.', "0.") %>
 exec chpst -u elasticsearch $ES_HOME/bin/elasticsearch \
-  -Des.config=$ES_CONF_DIR/elasticsearch.yml<% unless @options[:version].start_with?('1.', '2.') %> -f<% end %>
+  -Des.config=$ES_CONF_DIR/elasticsearch.yml<% unless @options[:version].start_with?('1.') %> -f<% end %>
+<% end %>

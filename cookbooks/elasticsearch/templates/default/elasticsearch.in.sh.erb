@@ -3,7 +3,7 @@ export ES_DATA_DIR=<%= @elasticsearch[:data_dirs].join(',') %>
 export ES_WORK_DIR=${ES_WORK_DIR-<%= @elasticsearch[:scratch_dir] %>}
 
 export CLASSPATH=$ES_HOME/plugins/cloud-aws.zip
-CLASSPATH=$CLASSPATH:$ES_HOME/lib/elasticsearch-*.jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
+CLASSPATH=$CLASSPATH:$ES_HOME/lib/elasticsearch-@elasticsearch[:version].jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
 # CLASSPATH=$CLASSPATH:$ES_HOME/lib/${project.build.finalName}.jar:$ES_HOME/lib/*:$ES_HOME/lib/sigar/*
 export ES_CLASSPATH=$CLASSPATH
 
@@ -21,7 +21,7 @@ if [ "x$ES_MAX_MEM" = "x" ]; then ES_MAX_MEM=1500m ; fi
 
 JAVA_OPTS="$JAVA_OPTS -Xms${ES_MIN_MEM}"
 JAVA_OPTS="$JAVA_OPTS -Xmx${ES_MAX_MEM}"
-JAVA_OPTS="$JAVA_OPTS -Xss256k" 
+JAVA_OPTS="$JAVA_OPTS -Xss256k"
 if [ "x$ES_HEAP_NEWSIZE" != "x" ]; then
   JAVA_OPTS="$JAVA_OPTS -XX:NewSize=${ES_HEAP_NEWSIZE} -XX:MaxNewSize=${ES_HEAP_NEWSIZE}"
 fi
@@ -67,6 +67,3 @@ ES_JAVA_OPTS="$ES_JAVA_OPTS -Des.path.data=$ES_DATA_DIR -Des.path.work=$ES_WORK_
 # ES_JAVA_OPTS="-Des.node.name=<%= node.name %> $ES_JAVA_OPTS"
 
 export JAVA_OPTS ES_JAVA_OPTS ES_MAX_MEM ES_MIN_MEM
-
-       
-
