@@ -224,10 +224,12 @@ jmx:
   port:                         <%= @elasticsearch[:jmx_dash_port] %>
   domain:                       elasticsearch
 
+<%- if @elasticsearch[:discovery_type] == 'com.sonian.elasticsearch.zookeeper.discovery.ZooKeeperDiscoveryModule' %>
 sonian.elasticsearch.zookeeper:
     settings.enabled: true
     client.host: <%= @elasticsearch[:discovery_zk][:zk_hosts] %>
     discovery.state_publishing.enabled: true
+<%- end %>
 
 # http://www.elasticsearch.com/docs/elasticsearch/modules/discovery/
 discovery:
