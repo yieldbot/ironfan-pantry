@@ -79,6 +79,10 @@ default[:elasticsearch][:index_cache_field_type]  = 'resident'   # Another optio
 default[:elasticsearch][:index_cache_field_size]  = '40%'
 default[:elasticsearch][:index_cache_field_cb_limit] = '80%'  # fielddata circuit breaker limit
 default[:elasticsearch][:index_cache_field_cb_overhead] = '1.03'  # fielddata circuit breaker overhead
+
+default[:elasticsearch][:indices_breaker_total_limit] = '70%'
+default[:elasticsearch][:indices_breaker_request_limit] = '20%'
+
 default[:elasticsearch][:merge_factor]            = 10
 default[:elasticsearch][:floor_segment]           = "2.7mb"
 

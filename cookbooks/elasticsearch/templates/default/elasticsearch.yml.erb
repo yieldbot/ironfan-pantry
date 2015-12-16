@@ -80,6 +80,11 @@ indices.recovery:
 
 # http://groups.google.com/a/elasticsearch.com/group/users/browse_thread/thread/1f3001f43266879a/06d62ea3ceb4db30?lnk=gst&q=translog#06d62ea3ceb4db30
 indices:
+  breaker:
+    total:
+      limit: <%= @elasticsearch[:indices_breaker_total_limit] %>
+    request:
+      limit: <%= @elasticsearch[:indices_breaker_request_limit] %>
   cache:
     filter:
       # Percent of memory on the node to cache filter results; this is a
