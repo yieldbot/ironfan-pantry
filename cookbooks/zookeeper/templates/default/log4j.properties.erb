@@ -41,6 +41,17 @@ log4j.appender.FILE.File=${zookeeper.log.dir}/${zookeeper.log.file}
 log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
 log4j.appender.FILE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 
+#
+# Add ROLLINGFILE to rootLogger to get log file output
+log4j.appender.ROLLINGFILE=org.apache.log4j.RollingFileAppender
+log4j.appender.ROLLINGFILE.Threshold=INFO
+log4j.appender.ROLLINGFILE.File=${zookeeper.log.dir}/${zookeeper.log.file}
+# Max log file size of 300MB and 4 backups
+log4j.appender.ROLLINGFILE.MaxFileSize=300MB
+log4j.appender.ROLLINGFILE.MaxBackupIndex=4
+
+log4j.appender.ROLLINGFILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.ROLLINGFILE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 
 #
 # Add TRACEFILE to rootLogger to get log file output
